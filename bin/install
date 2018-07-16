@@ -69,7 +69,7 @@ get_java() {
 		8.141) url=$base$oracle_version-b15/336fa29ff2bb4ef291e347e091f7f4a7/jdk-$oracle_version-$variant ;;
 		8.131) url=$s3base/jdk-$oracle_version-$variant ;;
 		8.121) url=$base$oracle_version-b13/e9e7ea248e2c4826b92b3f075a80e441/jdk-$oracle_version-$variant ;;
-		8.111) url=$s3basejdk-$oracle_version-$variant ;;
+		8.111) url=$s3base/jdk-$oracle_version-$variant ;;
 		*) ASDF_JAVA_ERROR="$version is not a supported version" ;;
 	esac
 	[[ -z "$ASDF_JAVA_ERROR" ]] || return
