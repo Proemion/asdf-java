@@ -63,11 +63,12 @@ get_java() {
 	local oracle_version=$(echo $version | sed -e 's/\./u/g')
 
 	local s3base=https://s3-eu-west-1.amazonaws.com/repo.proemion.com
+	local corretto_base=https://d2znqt9b1bc64u.cloudfront.net/amazon-$version-linux-x64.tar.gz
 
 	case $version in
 		corretto-8.202.08.2)
-			url=https://d2znqt9b1bc64u.cloudfront.net/amazon-corretto-8.202.08.2-linux-x64.tar.gz 
-			signature=https://d2znqt9b1bc64u.cloudfront.net/amazon-corretto-8.202.08.2-linux-x64.tar.gz.sig
+			url=${corretto_base}
+			signature=${corretto_base}.sig
 			sigkey="0x1D393698D95A3146"
 		;;
 		9.0.1) url=$base$version+11/jdk-$version'_'$(get_current_variant $variant) ;;
