@@ -68,7 +68,7 @@ get_java() {
 		corretto-8.202.08.2)
 			url=https://d2znqt9b1bc64u.cloudfront.net/amazon-corretto-8.202.08.2-linux-x64.tar.gz 
 			signature=https://d2znqt9b1bc64u.cloudfront.net/amazon-corretto-8.202.08.2-linux-x64.tar.gz.sig
-			sigkey=https://d1f2yzg3dx5xke.cloudfront.net/D95A3146.pub
+			sigkey="0x1D393698D95A3146"
 		;;
 		9.0.1) url=$base$version+11/jdk-$version'_'$(get_current_variant $variant) ;;
 		8.151) url=$s3base/jdk-$oracle_version-$variant ;;
@@ -96,19 +96,15 @@ get_java() {
 			--retry 3 --retry-delay 3 \
 			-b oraclelicense=a \
 			-o $destdir/${variant}.sig $signature
-		curl -fLC - \
-			--progress-bar --silent \
-			--retry 3 --retry-delay 3 \
-			-b oraclelicense=a \
-			-o $destdir/${variant}.pub $sigkey
 		
-		gpg --import $destdir/${variant}.pub
+		# gpg servers are known not to be reliable
+		gpg --recv $sigkey || gpg --recv $sigkey || gpg --recv $sigkey
 		if gpg --verify $destdir/${variant}.sig ; then
 			echo "Archive verification: successful"
 		else
 			ASDF_JAVA_ERROR="Archive verification: failed!"
 		fi
-		rm -f $destdir/${variant}.pub -f $destdir/${variant}.sig
+		rm -f $destdir/${variant}.sig
 	fi
 
 	[[ $? != 0 ]] && ASDF_JAVA_ERROR="downloading java dist"
