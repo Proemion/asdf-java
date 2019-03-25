@@ -90,21 +90,21 @@ get_java() {
 		--retry 3 --retry-delay 3 \
 		-b oraclelicense=a \
 		-o $destdir/$variant $url
-    
+
 	if [ "$signature" != "" ] && [ "$sigkey" != "" ]; then
 		curl -fLC - \
 			--progress-bar --silent \
 			--retry 3 --retry-delay 3 \
 			-b oraclelicense=a \
 			-o $destdir/${variant}.sig $signature
-		
+
 		# gpg servers are known not to be reliable
-		gpg --keyserver ha.pool.sks-keyservers.net --recv $sigkey \
-		|| gpg --keyserver ha.pool.sks-keyservers.net --recv $sigkey \
-		|| gpg --keyserver ha.pool.sks-keyservers.net --recv $sigkey \
-		|| gpg --keyserver ipv4.pool.sks-keyservers.net --recv $sigkey \
-		|| gpg --keyserver ipv4.pool.sks-keyservers.net --recv $sigkey \
-		|| gpg --keyserver ipv4.pool.sks-keyservers.net --recv $sigkey
+		gpg --keyserver hkp://ha.pool.sks-keyservers.net:80  --recv $sigkey \
+		|| gpg --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv $sigkey \
+		|| gpg --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv $sigkey \
+		|| gpg --keyserver hkp://ipv4.pool.sks-keyservers.net:80 --recv $sigkey \
+		|| gpg --keyserver hkp://ipv4.pool.sks-keyservers.net:80 --recv $sigkey \
+		|| gpg --keyserver hkp://ipv4.pool.sks-keyservers.net:80 --recv $sigkey
 		if gpg --verify $destdir/${variant}.sig ; then
 			echo "Archive verification: successful"
 		else
