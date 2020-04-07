@@ -61,16 +61,21 @@ get_java() {
 	local sigkey=
 	local base=http://download.oracle.com/otn-pub/java/jdk/
 	local oracle_version=$(echo $version | sed -e 's/\./u/g')
-
 	local s3base=https://s3-eu-west-1.amazonaws.com/repo.proemion.com
-	local corretto_base=https://d2znqt9b1bc64u.cloudfront.net/amazon-$version-linux-x64.tar.gz
 
 	case $version in
-		corretto-8.202.08.2)
+		corretto-8.242.08.1)
+            local corretto_base="https://corretto.aws/downloads/resources/$(cut -d - -f2 <<< "$version")/amazon-$version-linux-x64.tar.gz"
+			url=${corretto_base}
+			signature=${corretto_base}.sig
+			sigkey="A122542AB04F24E3"
+		;;
+        corretto-8.202.08.2)
+            local corretto_base=https://d2znqt9b1bc64u.cloudfront.net/amazon-$version-linux-x64.tar.gz
 			url=${corretto_base}
 			signature=${corretto_base}.sig
 			sigkey="0x1D393698D95A3146"
-		;;
+        ;;
 		9.0.1) url=$base$version+11/jdk-$version'_'$(get_current_variant $variant) ;;
 		8.151) url=$s3base/jdk-$oracle_version-$variant ;;
 		8.144) url=$base$oracle_version-b01/090f390dda5b47b9b721c7dfaa008135/jdk-$oracle_version-$variant ;;
