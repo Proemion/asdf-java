@@ -64,6 +64,12 @@ get_java() {
 	local s3base=https://s3-eu-west-1.amazonaws.com/repo.proemion.com
 
 	case $version in
+		corretto-8.312.07.1)
+            local corretto_base="https://corretto.aws/downloads/resources/$(cut -d - -f2 <<< "$version")/amazon-$version-linux-x64.tar.gz"
+			url=${corretto_base}
+			signature=${corretto_base}.sig
+			sigkey="A122542AB04F24E3"
+		;;
 		corretto-8.282.08.1)
             local corretto_base="https://corretto.aws/downloads/resources/$(cut -d - -f2 <<< "$version")/amazon-$version-linux-x64.tar.gz"
 			url=${corretto_base}
