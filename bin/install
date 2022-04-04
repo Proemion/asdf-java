@@ -100,7 +100,7 @@ get_java() {
 			signature=${corretto_base}.sig
 			sigkey="A122542AB04F24E3"
 		;;
-		corretto-17.0.1.12.1)
+		corretto-17.0.2.8.1)
             local corretto_base="https://corretto.aws/downloads/resources/$(cut -d - -f2 <<< "$version")/amazon-$version-linux-x64.tar.gz"
 			url=${corretto_base}
 			signature=${corretto_base}.sig
