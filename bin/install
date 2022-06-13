@@ -134,12 +134,14 @@ get_java() {
 			-o $destdir/${variant}.sig $signature
 
 		# gpg servers are known not to be reliable
-		gpg --keyserver hkp://ha.pool.sks-keyservers.net:80  --recv $sigkey \
-		|| gpg --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv $sigkey \
-		|| gpg --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv $sigkey \
+		gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv $sigkey \
+		|| gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv $sigkey \
 		|| gpg --keyserver hkp://ipv4.pool.sks-keyservers.net:80 --recv $sigkey \
 		|| gpg --keyserver hkp://ipv4.pool.sks-keyservers.net:80 --recv $sigkey \
-		|| gpg --keyserver hkp://ipv4.pool.sks-keyservers.net:80 --recv $sigkey
+		|| gpg --keyserver pgp.mit.edu --recv $sigkey \
+		|| gpg --keyserver pgp.mit.edu --recv $sigkey \
+		|| gpg --keyserver keyserver.pgp.com --recv $sigkey \
+		|| gpg --keyserver keyserver.pgp.com --recv $sigkey
 		if gpg --verify $destdir/${variant}.sig ; then
 			echo "Archive verification: successful"
 		else
